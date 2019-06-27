@@ -54,8 +54,8 @@ router.get("/coming_soon", async (ctx: any, next: () => Promise<any>) => {
 });
 
 /**
- * @route GET /v2/movie/search
- * @desc 电影搜索
+ * @route GET /v2/movie/search?q={text}
+ * @desc 电影条目搜索
  * @access 接口是公开到
  *
  * start : 数据的开始项
@@ -75,10 +75,10 @@ router.get("/search", async (ctx: any, next: () => Promise<any>) => {
 
 /**
  * @route GET /v2/movie/subject/:id
- * @desc 电影详情
+ * @desc 电影条目信息
  * @access 接口是公开到
  *
- * id : 电影id
+ * id : 电影id (例：1764796)
  * apikey
  */
 router.get("/subject/:id", async (ctx: any, next: () => Promise<any>) => {
@@ -101,6 +101,66 @@ router.get("/subject/:id", async (ctx: any, next: () => Promise<any>) => {
     );
     ctx.body = result.data;
 });
+
+/**
+ * @route GET /v2/movie/subject/:id/reviews
+ * @desc 电影条目影评列表
+ * @access 接口是公开到
+ *
+ * id (例：1054395)
+ * apikey
+ */
+router.get(
+    "/subject/:id/reviews",
+    async (ctx: any, next: () => Promise<any>) => {
+        const { id } = ctx.params;
+        if (!id) {
+            ctx.body = { code: 404, msg: "没有找到" };
+            return;
+        }
+        if (!ctx.query.apikey) {
+            ctx.body = { code: 104, msg: "invalid_apikey" };
+            return;
+        }
+        const result = await axios.get(
+            `${domainApi}/movie/subject/${id}/reviews`,
+            {
+                params: ctx.query
+            }
+        );
+        ctx.body = result.data;
+    }
+);
+
+/**
+ * @route GET /v2/movie/subject/:id/comments
+ * @desc 电影条目短评列表
+ * @access 接口是公开到
+ *
+ * id (例：1054395)
+ * apikey
+ */
+router.get(
+    "/subject/:id/comments",
+    async (ctx: any, next: () => Promise<any>) => {
+        const { id } = ctx.params;
+        if (!id) {
+            ctx.body = { code: 404, msg: "没有找到" };
+            return;
+        }
+        if (!ctx.query.apikey) {
+            ctx.body = { code: 104, msg: "invalid_apikey" };
+            return;
+        }
+        const result = await axios.get(
+            `${domainApi}/movie/subject/${id}/comments`,
+            {
+                params: ctx.query
+            }
+        );
+        ctx.body = result.data;
+    }
+);
 
 /**
  * @route GET /v2/movie/weekly
@@ -157,11 +217,69 @@ router.get("/new_movies", async (ctx: any, next: () => Promise<any>) => {
 });
 
 /**
- * @route GET /v2/movie/us_box
- * @desc 影人剧照
+ * @route GET /v2/movie/celebrity/:id
+ * @desc 影人条目信息
  * @access 接口是公开到
  *
- * id: celebrity id
+ * id: celebrity id (例：1054395)
+ * apikey
+ */
+router.get("/celebrity/:id", async (ctx: any, next: () => Promise<any>) => {
+    const { id } = ctx.params;
+    if (!id) {
+        ctx.body = { code: 404, msg: "没有找到" };
+        return;
+    }
+
+    if (!ctx.query.apikey) {
+        ctx.body = { code: 104, msg: "invalid_apikey" };
+        return;
+    }
+
+    const result = await axios.get(`${domainApi}/movie/celebrity/${id}`, {
+        params: ctx.query
+    });
+    ctx.body = result.data;
+});
+
+/**
+ * @route GET /v2/movie/celebrity/:id/works
+ * @desc 影人作品
+ * @access 接口是公开到
+ *
+ * id: celebrity id (例：1054395)
+ * apikey
+ */
+router.get(
+    "/celebrity/:id/works",
+    async (ctx: any, next: () => Promise<any>) => {
+        const { id } = ctx.params;
+        if (!id) {
+            ctx.body = { code: 404, msg: "没有找到" };
+            return;
+        }
+
+        if (!ctx.query.apikey) {
+            ctx.body = { code: 104, msg: "invalid_apikey" };
+            return;
+        }
+
+        const result = await axios.get(
+            `${domainApi}/movie/celebrity/${id}/works`,
+            {
+                params: ctx.query
+            }
+        );
+        ctx.body = result.data;
+    }
+);
+
+/**
+ * @route GET /v2/movie/celebrity/:id/photos
+ * @desc 影人剧照 （影人条目信息）
+ * @access 接口是公开到
+ *
+ * id: celebrity id （例：1054395）
  * apikey
  */
 router.get(
