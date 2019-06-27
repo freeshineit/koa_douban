@@ -1,0 +1,17 @@
+doctype html
+html(lang="en")
+  head
+    title= title
+    meta(name="referrer", content="never")
+    link(rel="icon" href="images/favicon.ico")
+    //- script(type='text/javascript').
+    //-   var _global = JSON.parse(decodeURIComponent('#{global}'))
+    //- if env && !['development'].includes(env)
+    //-     link(rel='stylesheet', type='text/css', href=JSON.parse(decodeURIComponent(_manifest))['app.css'])
+    //- else
+    //-     link(rel='stylesheet', type='text/css', href='//localhost:' + port + '/app.css')
+    script(stype='text/javascript', src='https://code.jquery.com/jquery-1.11.3.js')
+  body
+    #root 你好 hello world
+        
+    script(stype='text/javascript', src='/js/index.js')

@@ -1,0 +1,48 @@
+{
+    "name": "koa_douban",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "dependencies": {
+        "@types/gravatar": "^1.4.28",
+        "@types/jsonwebtoken": "^8.3.2",
+        "axios": "^0.19.0",
+        "bcrypt": "^3.0.4",
+        "gravatar": "^1.8.0",
+        "jsonwebtoken": "^8.5.1",
+        "koa": "^2.6.2",
+        "koa-bodyparser": "^4.2.1",
+        "koa-router": "^7.4.0",
+        "koa-static": "^5.0.0",
+        "koa-views": "^6.1.5",
+        "mongoose": "^5.4.17",
+        "pug": "^2.0.3"
+    },
+    "devDependencies": {
+        "@types/bcrypt": "^3.0.0",
+        "@types/koa": "^2.0.47",
+        "@types/koa-bodyparser": "^4.2.1",
+        "@types/koa-router": "^7.0.35",
+        "@types/koa-static": "^4.0.0",
+        "@types/koa-views": "^2.0.3",
+        "@types/mongoose": "^5.3.20",
+        "@types/node": "^10.12.18",
+        "eslint": "^5.11.0",
+        "node": "^11.5.0",
+        "nodemon": "^1.18.9",
+        "ts-node": "^7.0.1",
+        "typescript": "^3.2.2"
+    },
+    "scripts": {
+        "build": "tsc",
+        "start": "npm run serve",
+        "server": "supervisor dist/server.js",
+        "server:dev": "nodemon --config nodemon.json -e ts --exec ts-node ./src/server.ts"
+    },
+    "repository": {
+        "type": "git"
+    },
+    "keywords": [],
+    "author": "shineshao <xiaoshaoqq@gmail.com>",
+    "license": "ISC"
+}
