@@ -248,4 +248,206 @@ router.get("/series/:id/books", async (ctx: any, next: () => Promise<any>) => {
     ctx.body = result.data;
 });
 
+// scope: book_basic_w
+/**
+ * @route POST /v2/book/:id/collection
+ * @desc 用户收藏某本图书
+ * @access 接口是公开到
+ *
+ */
+router.post("/:id/collection", async (ctx: any, next: () => Promise<any>) => {
+    const { id } = ctx.params;
+
+    if (!id) {
+        ctx.body = { code: 404, msg: "id 字段必传" };
+        return;
+    }
+
+    const result = await axios.post(`${domainApi}/${id}/collection`, {
+        ...ctx.request.body
+    });
+    ctx.body = result.data;
+});
+
+/**
+ * @route PUT /v2/book/:id/collection
+ * @desc 用户修改对某本图书的收藏
+ * @access 接口是公开到
+ *
+ */
+router.put("/:id/collection", async (ctx: any, next: () => Promise<any>) => {
+    const { id } = ctx.params;
+
+    if (!id) {
+        ctx.body = { code: 404, msg: "id 字段必传" };
+        return;
+    }
+
+    const result = await axios.put(`${domainApi}/${id}/collection`, {
+        ...ctx.request.body
+    });
+    ctx.body = result.data;
+});
+
+/**
+ * @route DELETE /v2/book/:id/collection
+ * @desc 用户删除对某本图书的收藏
+ * @access 接口是公开到
+ *
+ */
+router.delete("/:id/collection", async (ctx: any, next: () => Promise<any>) => {
+    const { id } = ctx.params;
+    if (!id) {
+        ctx.body = { code: 404, msg: "id 字段必传" };
+        return;
+    }
+
+    const result = await axios.delete(`${domainApi}/${id}/collection`, {
+        ...ctx.request.body
+    });
+    ctx.body = result.data;
+});
+
+/**
+ * @route POST /v2/book/:id/annotations
+ * @desc 用户给某本图书写笔记
+ * @access 接口是公开到
+ *
+ */
+router.post("/:id/annotations", async (ctx: any, next: () => Promise<any>) => {
+    const { id } = ctx.params;
+    if (!id) {
+        ctx.body = { code: 404, msg: "id 字段必传" };
+        return;
+    }
+
+    const result = await axios.post(`${domainApi}/${id}/annotations`, {
+        ...ctx.request.body
+    });
+    ctx.body = result.data;
+});
+
+/**
+ * @route PUT /v2/book/annotation/:id
+ * @desc 用户修改某篇笔记
+ * @access 接口是公开到
+ *
+ */
+router.put("/annotation/:id", async (ctx: any, next: () => Promise<any>) => {
+    const { id } = ctx.params;
+    if (!id) {
+        ctx.body = { code: 404, msg: "id 字段必传" };
+        return;
+    }
+
+    const result = await axios.put(`${domainApi}/annotation/${id}`, {
+        ...ctx.request.body
+    });
+    ctx.body = result.data;
+});
+
+/**
+ * @route DELETE /v2/book/annotation/:id
+ * @desc 用户删除某篇笔记
+ * @access 接口是公开到
+ *
+ */
+router.delete("/annotation/:id", async (ctx: any, next: () => Promise<any>) => {
+    const { id } = ctx.params;
+    if (!id) {
+        ctx.body = { code: 404, msg: "id 字段必传" };
+        return;
+    }
+
+    const result = await axios.delete(`${domainApi}/annotation/${id}`, {
+        ...ctx.request.body
+    });
+    ctx.body = result.data;
+});
+
+// scope: douban_basic_common
+
+/**
+ * @route POST /v2/book/reviews
+ * @desc 发表新评论
+ * @access 接口是公开到
+ *
+ * book: 评论所针对的 book id	必传
+ * title: 评论头               必传
+ * content: 评论内容           必传，且多于 150 字
+ * rating: 打分                非必传，数字 1 ～ 5 为合法值，其他信息默认为不打分
+ *
+ */
+router.post("/reviews", async (ctx: any, next: () => Promise<any>) => {
+    console.log(ctx.query, ctx.request.body);
+
+    const result = await axios.post(`${domainApi}/reviews`, {
+        ...ctx.request.body
+    });
+
+    ctx.body = result.data;
+});
+
+/**
+ * @route PUT /v2/book/review/:id
+ * @desc 修改评论
+ * @access 接口是公开到
+ *
+ * title: 评论头               必传
+ * content: 评论内容           必传，且多于 150 字
+ * rating: 打分                非必传，数字 1 ～ 5 为合法值，其他信息默认为不打分
+ *
+ */
+router.put("/review/:id", async (ctx: any, next: () => Promise<any>) => {
+    const { id } = ctx.params;
+    if (!id) {
+        ctx.body = { code: 404, msg: "id 字段必传" };
+        return;
+    }
+
+    const result = await axios.put(`${domainApi}/review/${id}`, {
+        ...ctx.request.body
+    });
+    ctx.body = result.data;
+});
+
+/**
+ * @route DELETE /v2/book/review/:id
+ * @desc 删除评论
+ * @access 接口是公开到
+ *
+ */
+router.delete("/review/:id", async (ctx: any, next: () => Promise<any>) => {
+    const { id } = ctx.params;
+    if (!id) {
+        ctx.body = { code: 404, msg: "id 字段必传" };
+        return;
+    }
+
+    const result = await axios.delete(`${domainApi}/review/${id}`, {
+        ...ctx.request.body
+    });
+
+    ctx.body = result.data;
+});
+
+// /**
+//  * @route GET /v2/book/user_tags/:id
+//  * @desc 获取用户对图书的所有标签(deprecated)
+//  * @access 接口是公开到
+//  *
+//  */
+// router.get("/user_tags/:id", async (ctx: any, next: () => Promise<any>) => {
+//     const { id } = ctx.params;
+//     if (!id) {
+//         ctx.body = { code: 404, msg: "id 字段必传" };
+//         return;
+//     }
+
+//     const result = await axios.get(`${domainApi}/user_tags/${id}`, {
+//         ...ctx.request.body
+//     });
+//     ctx.body = result.data;
+// });
+
 export default router.routes();
