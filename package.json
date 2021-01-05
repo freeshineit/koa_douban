@@ -6,7 +6,7 @@
     "dependencies": {
         "@types/gravatar": "^1.4.28",
         "@types/jsonwebtoken": "^8.3.2",
-        "axios": "^0.19.0",
+        "axios": "^0.21.1",
         "bcrypt": "^3.0.4",
         "gravatar": "^1.8.0",
         "jsonwebtoken": "^8.5.1",
